@@ -1,66 +1,174 @@
-#  Medical Text Classifier
+# Medical Text Classifier  
 
-A simple machine learning project that predicts the **branch of medicine** a given text belongs to.  
-It combines **scraped Polish medical articles** (`mp.pl`) with **exam datasets** from [SpeakLeash](https://huggingface.co/speakleash).
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)  
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)  
+[![Transformers](https://img.shields.io/badge/HuggingFace-Transformers-yellow.svg)](https://huggingface.co/transformers/)  
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-ML-orange.svg)](https://scikit-learn.org/)  
 
----
+**Medical Text Classifier** is a Natural Language Processing (NLP) project for classifying **Polish medical texts** into categories such as *Alergie*, *Cukrzyca*, etc.  
 
-## Features
-- Scrapes Polish medical articles from [mp.pl/pacjent](https://www.mp.pl/pacjent/).
-- Loads labeled exam data from `speakleash/PES-2018-2022`.
-- Preprocesses text: lowercasing, cleaning, removing Polish stopwords.
-- Vectorizes with **TF-IDF (bigrams)**.
-- Trains a **Logistic Regression classifier** (plus experiments with NB, SVM, RF).
-- Achieves ~83% accuracy on test data.
+It demonstrates both **traditional ML (Logistic Regression + TF-IDF)** and **deep learning (HerBERT, a Polish BERT model)** approaches for medical text classification.  
+
+This project highlights **data collection, preprocessing, model training, and evaluation** — making it a strong showcase for **NLP, ML, and deep learning skills**.  
 
 ---
 
-##  Project Structure
+## Features  
+
+- Text preprocessing with stopword removal, tokenization, and cleaning  
+- Baseline classifier using **Logistic Regression**  
+- Transformer-based classifier using **HerBERT** (BERT for Polish)  
+- Web scraping pipeline for collecting medical texts (`scrape_data.py`)  
+- Model persistence (`pickle` for ML, HuggingFace save for BERT)  
+- Easy CLI prediction with probabilities  
+
+---
+
+## Project Structure  
 ```
-medical-text-classifier/
-├── data/ # Raw + processed text data
-├── notebooks/ # EDA and experiments
-├── src/ # Source code
-│ ├── scrape_data.py # Scrape mp.pl
-│ ├── prepare_data.py # Clean & preprocess
-│ ├── train_classifier.py # Train & evaluate model
-│ └── utils.py # Helper functions
-├── models/ # Trained models (optional)
+medical-text-classifier-clean/
+│
+├── README.md # This file
 ├── requirements.txt # Dependencies
-└── README.md # This file
+├── data/ # Medical text files
+│ ├── Alergie/
+│ ├── Cukrzyca/
+│ ├── more folders here - see below for explanation
+│ └── SL_data/
+├── models/ # Saved models
+│ └── baseline_lr.pkl # Logistic Regression model
+└── src/ # Scripts
+├── prepare_data.py # Data loading & cleaning
+├── train_classifier.py # Train Logistic Regression model
+├── predict.py # Predict with Logistic Regression
+├── train_herbert.py # Train HerBERT model
+├── predict_herbert.py # Predict with HerBERT
+└── scrape_data.py # Scrape articles from https://www.mp.pl/pacjent/
 ```
-## Quickstart
 
-### 1. Clone repo
+## Repository Notes  
+
+This repository only contains **lightweight data and models** for demonstration purposes.  
+The full dataset and large trained models are **not included** due to size constraints and licensing considerations.  
+
+- `data/` → only includes small example subsets (e.g., `Alergie` and `Cukrzyca`).  
+  - Original dataset is much larger and cannot be shared directly here.  
+  - You can replace the folder with your own text files to retrain models.  
+
+- `models/` → includes only the baseline Logistic Regression model (`baseline_lr.pkl`).  
+  - Full fine-tuned **HerBERT model** is **not included** (2 GB).  
+  - If you want to train it yourself, run:  
+    ```
+    python src/train_herbert.py
+    ```  
+    This will download HerBERT via HuggingFace and fine-tune it on your data.  
+
+- `logs/`, `wandb/`, and other experiment outputs are ignored via `.gitignore` to keep the repository clean.  
+
+## Installation  
+
+**Clone repo**
 ```
-git clone https://github.com/<your-username>/medical-text-classifier.git
-cd medical-text-classifier
+git clone https://github.com/aleksannndra/medical-text-classifier-clean.git
+cd medical-text-classifier-clean
 ```
-### 2. Install dependencies
+
+**Create virtual environment**
+```
+python -m venv venv
+source venv/bin/activate  # macOS/Linux
+venv\Scripts\activate     # Windows
+```
+
+**Install dependencies**
 ```
 pip install -r requirements.txt
 ```
-### 3. Scrape data
-```
-python src/scrape_data.py
-```
-### 4. Prepare data
-```
-python src/prepare_data.py
-```
-### 5. Train model
+
+## Model Performance
+
+I evaluated two approaches for Polish medical text classification: a baseline TF-IDF + Logistic Regression model, and a fine-tuned HerBERT (Polish BERT) model.
+
+| Model                          | Accuracy | Macro Precision | Macro Recall | Macro F1 | Weighted Precision | Weighted Recall | Weighted F1 |
+|--------------------------------|----------|-----------------|--------------|----------|--------------------|-----------------|-------------|
+| **Baseline (TF-IDF + Logistic Regression)** | 0.82     | 0.87            | 0.78         | 0.81     | 0.87               | 0.82            | 0.83        |
+| **HerBERT (fine-tuned)**       | 0.885    | 0.890           | 0.885        | 0.881    | –                  | –               | –           |
+
+**Key takeaway**:  
+- The **baseline model** achieves solid performance (82% accuracy, Weighted F1 = 0.83), demonstrating that traditional ML methods can capture meaningful patterns.  
+- The **HerBERT model** significantly improves results (Accuracy = 88.5%, F1 = 0.88), showing the advantage of using transformer-based language models for domain-specific classification.
+
+## Training
+**Baseline Logistic Regression**
 ```
 python src/train_classifier.py
 ```
-## Results
-Baseline Logistic Regression:
 
-Accuracy: 0.83
+- Trains a Logistic Regression model with TF-IDF features
+- Saves model to models/baseline_lr.pkl
 
-Strong performance on categories like Alergie, Onkologia, Psychiatria, Stomatologia.
+**HerBERT (BERT for Polish)**
+```
+python src/train_herbert.py
+```
 
-Weaker performance for underrepresented categories (e.g., Ginekologia, Nefrologia).
+- Fine-tunes HerBERT with HuggingFace Transformers
+- Saves model + tokenizer to models/herbert_model/
+
+## Making Predictions
+**Logistic Regression**
+```
+python src/predict.py
+```
+
+*Example:*
+
+Enter text: Pacjent z cukrzycą typu 2  # text can be much longer
+Prediction → Cukrzyca (0.92)
+
+**HerBERT Model**
+```
+python src/predict_herbert.py
+```
+
+*Example:*
+
+Enter text: Pacjentka zgłosiła objawy alergii  # text can be much longer
+Prediction → Alergie (0.87)
+
 
 ## License
-MIT License.
+
+This project is open-source and available under the MIT License. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
