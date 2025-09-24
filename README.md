@@ -33,9 +33,10 @@ medical-text-classifier-clean/
 ├── data/ # Medical text files
 │ ├── Alergie/
 │ ├── Cukrzyca/
-│ ├── more folders here - see Limitations section below for explanation
+│ ├── more folders here - see Limitations section below 
 │ └── SL_data/ # data from SpeakLeash
 ├── models/ # Saved models
+│ ├── herbert_model/ # not included here due to size - see Repository Notes below
 │ └── baseline_lr.pkl # Logistic Regression model
 └── src/ # Scripts
 ├── prepare_data.py # Data loading & cleaning
