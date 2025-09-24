@@ -33,8 +33,8 @@ medical-text-classifier-clean/
 ├── data/ # Medical text files
 │ ├── Alergie/
 │ ├── Cukrzyca/
-│ ├── more folders here - see below for explanation
-│ └── SL_data/
+│ ├── more folders here - see Limitations section below for explanation
+│ └── SL_data/ # data from SpeakLeash
 ├── models/ # Saved models
 │ └── baseline_lr.pkl # Logistic Regression model
 └── src/ # Scripts
@@ -64,6 +64,46 @@ The full dataset and large trained models are **not included** due to size const
     This will download HerBERT via HuggingFace and fine-tune it on your data.  
 
 - `logs/`, `wandb/`, and other experiment outputs are ignored via `.gitignore` to keep the repository clean.  
+
+## Limitations
+
+This project was built primarily as a **learning exercise**, and therefore the dataset is **limited and imperfect**. The data comes from two main sources:  
+
+- **[mp.pl](https://www.mp.pl/pacjent/)** → I manually scraped articles across various medical specialties.
+- **[SpeakLeash](https://speakleash.org/)** → additional Polish text data, which I mapped to medical categories to expand coverage.  
+
+### Categories Included
+The following medical specialties were included in the training data:
+
+- **Alergie**  
+- **Cukrzyca**  
+- **Dermatologia**  
+- **Endokrynologia**  
+- **Gastrologia**  
+- **Ginekologia**  
+- **Hematologia**  
+- **Kardiologia**  
+- **Nefrologia**  
+- **Neurologia**  
+- **Okulistyka**  
+- **Onkologia**  
+- **Ortopedia**  
+- **Otolaryngologia**  
+- **Pediatria**  
+- **Psychiatria**  
+- **Pulmonologia**  
+- **Rehabilitacja**  
+- **Reumatologia**  
+- **Stomatologia**  
+
+### Important Notes
+- **Not all medical specialties were included**. Categories outside the above list will **not be recognized** by the model.  
+- Even within these categories, the amount of data was **relatively small** compared to real-world datasets.  
+- As a result, the model is **not perfect** — some classes perform very well, while others have lower recall/precision.  
+- The main goal of this project was to **learn the full pipeline**: data collection, preprocessing, traditional ML baseline, and fine-tuning a transformer model (HerBERT).  
+
+**In a production setting, much more data would be required for robust performance across all specialties!**
+
 
 ## Installation  
 
