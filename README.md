@@ -164,7 +164,8 @@ python src/predict.py
 
 *Example:*
 
-Enter text: Pacjent z cukrzycą typu 2  # text can be much longer
+Enter text: Pacjent z cukrzycą typu 2   *(text can be much longer)*
+
 Prediction → Cukrzyca (0.92)
 
 **HerBERT Model**
@@ -174,7 +175,8 @@ python src/predict_herbert.py
 
 *Example:*
 
-Enter text: Pacjentka zgłosiła objawy alergii  # text can be much longer
+Enter text: Pacjentka zgłosiła objawy alergii *(text can be much longer)*
+
 Prediction → Alergie (0.87)
 
 
