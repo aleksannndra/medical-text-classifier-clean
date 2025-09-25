@@ -185,6 +185,24 @@ I evaluated two approaches for Polish medical text classification: a baseline TF
 This project is open-source and available under the MIT License. 
 
 
+## References
+
+- **HerBERT (Polish BERT model)**: [https://huggingface.co/dkleczek/bert-base-polish-cased-v1](https://huggingface.co/dkleczek/bert-base-polish-cased-v1)  
+- **Polish medical dataset sources**:
+  - [mp.pl – Pacjent](https://www.mp.pl/pacjent/) (web-scraped articles)
+  - SpeakLeash dataset (private mapping for research purposes)
+- **Python libraries & tools**:
+  - [scikit-learn](https://scikit-learn.org/)
+  - [PyTorch](https://pytorch.org/)
+  - [HuggingFace Transformers](https://huggingface.co/transformers/)
+  - [datasets](https://huggingface.co/docs/datasets/)
+  - [HuggingFace Hub](https://huggingface.co/docs/hub/)
+  - [stopwordsiso](https://github.com/stopwords-iso/stopwords-iso)
+  - [Trafilatura](https://trafilatura.readthedocs.io/en/latest/)
+- **Visualization**:
+  - [matplotlib](https://matplotlib.org/)
+  - [seaborn](https://seaborn.pydata.org/)
+
 
 
 
