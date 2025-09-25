@@ -7,13 +7,13 @@ import torch.nn.functional as F
 from transformers import BertTokenizer, BertForSequenceClassification
 
 # -------- CONFIG --------
-MODEL_DIR = "/content/drive/MyDrive/medical-text-classifier-clean/models/herbert_model"
+HF_REPO = "aleksannndra/medical-text-classifier-herbert-PL"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 TOP_K = 3
 
 # Load model, tokenizer, label encoder
-tokenizer = BertTokenizer.from_pretrained(MODEL_DIR)
-model = BertForSequenceClassification.from_pretrained(MODEL_DIR)
+tokenizer = BertTokenizer.from_pretrained(HF_REPO)
+model = BertForSequenceClassification.from_pretrained(HF_REPO)
 label_encoder = joblib.load(os.path.join(MODEL_DIR, "label_encoder.pkl"))
 model.to(DEVICE)
 model.eval()
