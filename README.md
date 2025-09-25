@@ -59,11 +59,6 @@ The full dataset and large trained models are **not included** due to size const
 - `models/` → includes only the baseline Logistic Regression model (`baseline_lr.pkl`).  
   - Full fine-tuned **HerBERT model** is **not included here** (2 GB). 
   - The model is available on HuggingFace and downloaded from there when running predict_herbert.py
-  - If you want to train it yourself, run:  
-    ```
-    python src/train_herbert.py
-    ```  
-    This will download HerBERT via HuggingFace and fine-tune it on your data.  
 
 - `logs/`, `wandb/`, and other experiment outputs are ignored via `.gitignore` to keep the repository clean.  
 
