@@ -57,7 +57,8 @@ The full dataset and large trained models are **not included** due to size const
   - You can replace the folder with your own text files to retrain models.  
 
 - `models/` → includes only the baseline Logistic Regression model (`baseline_lr.pkl`).  
-  - Full fine-tuned **HerBERT model** is **not included** (2 GB).  
+  - Full fine-tuned **HerBERT model** is **not included here** (2 GB). 
+  - The model is available on HuggingFace and downloaded from there when running predict_herbert.py
   - If you want to train it yourself, run:  
     ```
     python src/train_herbert.py
@@ -169,16 +170,26 @@ Enter text: Pacjent z cukrzycą typu 2   *(text can be much longer)*
 Prediction → Cukrzyca (0.92)
 
 **HerBERT Model**
+Using the HerBERT Model from Hugging Face:
+- You can run the fine-tuned HerBERT model without downloading it manually:
 ```
 python src/predict_herbert.py
 ```
 
+The script automatically:
+
+- Downloads the model and tokenizer from Hugging Face
+- Downloads the label encoder
+- Predicts the top 3 medical categories for your input text
+
 *Example:*
-
-Enter text: Pacjentka zgłosiła objawy alergii *(text can be much longer)*
-
-Prediction → Alergie (0.87)
-
+```
+Enter medical text: Pacjent z cukrzycą typu 2
+Top predictions:
+  Cukrzyca             0.8721
+  Endokrynologia       0.0453
+  Gastrologia          0.0218
+```
 
 ## License
 
