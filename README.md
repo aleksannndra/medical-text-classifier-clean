@@ -123,8 +123,9 @@ pip install -r requirements.txt
 ## Using the project
 
 ### Terminal/Local machine
+<br>
+1. Baseline Logistic Regression
 
-**Baseline Logistic Regression**
 ```
 python src/predict.py
 ```
@@ -133,9 +134,10 @@ python src/predict.py
 Enter text: Pacjent z cukrzycą typu 2   *(text can be much longer)*
 
 Prediction → Cukrzyca (0.92)
- 
 
-**HerBERT (BERT for Polish)**
+<br>
+2. HerBERT (BERT for Polish)
+
 ```
 python src/predict_herbert.py
 ```
