@@ -35,7 +35,6 @@ SL_MAPPING = {
     "onkologia_kliniczna": "Onkologia",
     "stomatologia_dziecieca": "Stomatologia",
     "gastroenterologia": "Gastrologia",
-    "ortodoncja": "Ortodoncja",
     "stomatologia_zachowawcza": "Stomatologia",
     "gastroenterologia_dziecieca": "Gastrologia",
     "ortopedia": "Ortopedia",
