@@ -2,8 +2,9 @@
 
 import joblib
 import numpy as np
+import os
 
-MODEL_PATH = "models/baseline_lr.pkl"
+MODEL_PATH = BASE_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), "models/baseline_lr.pkl")
 
 def load_model():
     """Load trained model and vectorizer"""
@@ -25,7 +26,7 @@ def predict(text, model, vectorizer, top_k=3):
 
 def main():
     model, vectorizer = load_model()
-    print("Model loaded. Type a medical text to classify (type 'exit' to quit).")
+    print("Model loaded. Type a Polish medical text to classify (type 'exit' to quit).")
 
     while True:
         text = input("\nEnter text: ")

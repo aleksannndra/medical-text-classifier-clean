@@ -6,7 +6,7 @@ import stopwordsiso
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-BASE_FOLDER = "/content/drive/MyDrive/medical-text-classifier-clean/data"
+BASE_FOLDER = BASE_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
 
 # Map SL_data subfolders to main categories
 SL_MAPPING = {
