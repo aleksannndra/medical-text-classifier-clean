@@ -4,7 +4,7 @@ import joblib
 import numpy as np
 import os
 
-MODEL_PATH = BASE_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), "models/baseline_lr.pkl")
+MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), "models/baseline_lr.pkl")
 
 def load_model():
     """Load trained model and vectorizer"""
