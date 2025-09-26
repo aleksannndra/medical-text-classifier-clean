@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from prepare_data import load_data, clean_text
 
 # --- 1. Load and preprocess data ---
-BASE_FOLDER = BASE_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
+BASE_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data")
 
 texts, labels = load_data(BASE_FOLDER)
 
