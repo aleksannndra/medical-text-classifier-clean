@@ -21,13 +21,6 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 # --------- DATA PREPARATION ---------
 polish_stopwords = stopwordsiso.stopwords("pl")
 
-def clean_text(text):
-    text = text.lower()
-    text = re.sub(r"[^\w\s\d]", "", text)
-    text = re.sub(r"\s+", " ", text).strip()
-    words = text.split()
-    filtered_words = [w for w in words if w not in polish_stopwords]
-    return " ".join(filtered_words)
 
 def load_data(base_folder=DATA_FOLDER):
     texts, labels = [], []
@@ -81,7 +74,7 @@ def load_data(base_folder=DATA_FOLDER):
                         for txt_file in os.listdir(sub_path):
                             if txt_file.endswith(".txt"):
                                 with open(os.path.join(sub_path, txt_file), "r", encoding="utf-8") as f:
-                                    text = clean_text(f.read())
+                                    text = f.read()
                                     texts.append(text)
                                     labels.append(label)
                 continue
