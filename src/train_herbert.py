@@ -9,6 +9,9 @@ from transformers import BertTokenizer, BertForSequenceClassification, Trainer, 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
+from google.colab import drive
+drive.mount('/content/drive')
+
 # --------- CONFIG ---------
 DATA_FOLDER = "/content/drive/MyDrive/medical-text-classifier-clean/data" # adjust if needed
 MODEL_NAME = "dkleczek/bert-base-polish-cased-v1"
@@ -83,7 +86,7 @@ def load_data(base_folder=DATA_FOLDER):
             for txt_file in os.listdir(folder_path):
                 if txt_file.endswith(".txt") and txt_file != "MedicalTextClassifier_README.txt":
                     with open(os.path.join(folder_path, txt_file), "r", encoding="utf-8") as f:
-                        text = clean_text(f.read())
+                        text = f.read()
                         texts.append(text)
                         labels.append(folder)
     return texts, labels
