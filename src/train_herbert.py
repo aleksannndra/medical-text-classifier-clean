@@ -9,8 +9,10 @@ from transformers import BertTokenizer, BertForSequenceClassification, Trainer, 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
+
 from google.colab import drive
 drive.mount('/content/drive')
+
 
 # --------- CONFIG ---------
 DATA_FOLDER = "/content/drive/MyDrive/medical-text-classifier-clean/data" # adjust if needed
@@ -132,7 +134,8 @@ training_args = TrainingArguments(
     logging_steps=50,
     save_total_limit=2,
     load_best_model_at_end=True,
-    metric_for_best_model="accuracy"
+    metric_for_best_model="accuracy",
+    report_to="none"
 )
 
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
@@ -143,6 +146,8 @@ def compute_metrics(pred):
     precision, recall, f1, _ = precision_recall_fscore_support(labels, preds, average="weighted")
     acc = accuracy_score(labels, preds)
     return {"accuracy": acc, "f1": f1, "precision": precision, "recall": recall}
+
+os.environ["WANDB_DISABLED"] = "true"
 
 trainer = Trainer(
     model=model,
