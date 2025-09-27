@@ -56,7 +56,6 @@ def load_data(base_folder=DATA_FOLDER):
         "onkologia_kliniczna": "Onkologia",
         "stomatologia_dziecieca": "Stomatologia",
         "gastroenterologia": "Gastrologia",
-        "ortodoncja": "Ortopedia",
         "stomatologia_zachowawcza": "Stomatologia",
         "gastroenterologia_dziecieca": "Gastrologia",
         "ortopedia": "Ortopedia",
