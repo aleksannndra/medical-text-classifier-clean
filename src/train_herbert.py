@@ -5,7 +5,7 @@ import re
 import torch
 import stopwordsiso
 from datasets import Dataset, DatasetDict
-from transformers import BertTokenizer, BertForSequenceClassification, Trainer, TrainingArguments
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
@@ -18,7 +18,7 @@ drive.mount('/content/drive')
 DATA_FOLDER = "/content/drive/MyDrive/medical-text-classifier-clean/data" # adjust if needed
 MODEL_NAME = "dkleczek/bert-base-polish-cased-v1"
 SAVE_DIR = "/content/drive/MyDrive/medical-text-classifier-clean/models/herbert_model"
-MAX_LENGTH = 256
+MAX_LENGTH = 500
 BATCH_SIZE = 8
 EPOCHS = 3
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
@@ -107,7 +107,7 @@ test_dataset = Dataset.from_dict({"text": X_test, "labels": y_test})
 dataset = DatasetDict({"train": train_dataset, "test": test_dataset})
 
 # --------- TOKENIZATION ---------
-tokenizer = BertTokenizer.from_pretrained(MODEL_NAME)
+tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
 
 def tokenize(batch):
     return tokenizer(batch["text"], padding="max_length", truncation=True, max_length=MAX_LENGTH)
