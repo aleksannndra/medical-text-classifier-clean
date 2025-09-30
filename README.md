@@ -173,11 +173,11 @@ I evaluated two approaches for Polish medical text classification: a baseline TF
 | Model                          | Accuracy | Macro Precision | Macro Recall | Macro F1 | Weighted Precision | Weighted Recall | Weighted F1 |
 |--------------------------------|----------|-----------------|--------------|----------|--------------------|-----------------|-------------|
 | **Baseline (TF-IDF + Logistic Regression)** | 0.75     | 0.86            | 0.70         | 0.74     | 0.82               | 0.75            | 0.76        |
-| **HerBERT (fine-tuned)**       | 0.885    | 0.890           | 0.885        | 0.881    | –                  | –               | –           |
+| **HerBERT (fine-tuned)**       | 0.902    | 0.912           | 0.902        | 0.902    | –                  | –               | –           |
 
 **Key takeaway**:  
 - The **baseline model** achieves good performance (75% accuracy, Weighted F1 = 0.76), demonstrating that traditional ML methods can capture meaningful patterns.  
-- The **HerBERT model** significantly improves results (Accuracy = 88.5%, F1 = 0.88), showing the advantage of using transformer-based language models for domain-specific classification.
+- The **HerBERT model** significantly improves results (Accuracy = 90.2%, F1 = 0.902), showing the advantage of using transformer-based language models for domain-specific classification.
 
 
 ## License
