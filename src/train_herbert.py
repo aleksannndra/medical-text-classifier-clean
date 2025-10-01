@@ -20,7 +20,7 @@ MODEL_NAME = "dkleczek/bert-base-polish-cased-v1"
 SAVE_DIR = "/content/drive/MyDrive/medical-text-classifier-clean/models/herbert_model"
 MAX_LENGTH = 500
 BATCH_SIZE = 8
-EPOCHS = 3
+EPOCHS = 4
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # --------- DATA PREPARATION ---------
@@ -117,7 +117,7 @@ dataset.set_format("torch", columns=["input_ids", "attention_mask", "labels"])
 
 # --------- MODEL ---------
 num_labels = len(le.classes_)
-model = BertForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=num_labels)
+model = AutoModelForSequenceClassification.from_pretrained(MODEL_NAME, num_labels=num_labels)
 model.to(DEVICE)
 
 # --------- TRAINER ---------
