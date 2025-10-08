@@ -56,7 +56,7 @@ The full dataset and large trained models are **not included** due to size const
 
 - `models/` → includes only the baseline Logistic Regression model (`baseline_lr.pkl`).  
   - Full fine-tuned **HerBERT model** is **not included here** (2 GB). 
-  - The HerBERT model is available on HuggingFace and downloaded from there when running predict_herbert.py
+  - The HerBERT model is available on [![Hugging Face Model](https://img.shields.io/badge/HuggingFace-Model-yellow?logo=huggingface&logoColor=white)](https://huggingface.co/aleksannndra/medical-text-classifier-herbert-PL) and downloaded from there when running predict_herbert.py
 
 - `logs/`, `wandb/`, and other experiment outputs are ignored via `.gitignore` to keep the repository clean.  
 
