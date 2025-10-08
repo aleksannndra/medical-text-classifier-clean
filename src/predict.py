@@ -26,10 +26,10 @@ def predict(text, model, vectorizer, top_k=3):
 
 def main():
     model, vectorizer = load_model()
-    print("Model loaded. Type a Polish medical text to classify (type 'exit' to quit).")
+    print("Type a Polish medical text to classify (type 'exit' to exit).")
 
     while True:
-        text = input("\nEnter text: ")
+        text = input("\nEnter text in Polish: ")
         if text.lower() == "exit":
             break
         predictions = predict(text, model, vectorizer)
