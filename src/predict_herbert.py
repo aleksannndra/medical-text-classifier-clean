@@ -39,10 +39,10 @@ def predict(text):
 # -------- CLI LOOP --------
 if __name__ == "__main__":
     print("HerBERT Medical Text Classifier (Polish)")
-    print("Type a medical text to classify. Type 'quit' to exit.")
+    print("Type a medical text in Polish to classify. Type 'exit' to exit.")
 
     while True:
-        text = input("\nEnter medical text: ")
+        text = input("\nEnter medical text in Polish: ")
         if text.lower() in ["quit", "exit"]:
             break
         predictions = predict(text)
