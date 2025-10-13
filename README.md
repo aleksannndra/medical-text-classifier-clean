@@ -60,6 +60,13 @@ The full dataset and large trained models are **not included** due to size const
 
 - `logs/`, `wandb/`, and other experiment outputs are ignored via `.gitignore` to keep the repository clean.  
 
+
+## Data Sources
+- **Web scraping:** [https://www.mp.pl/pacjent/](https://www.mp.pl/pacjent/) – Polish medical education portal  
+- **Synthetic text generation:** Gemini and ChatGPT — used to balance and diversify categories  
+- **SL_data:** Supplementary texts from the [SpeakLeash](https://speakleash.org/) dataset
+
+
 ## Limitations
 
 This project was built primarily as a **learning exercise**, and therefore the dataset is **limited and imperfect**. The data comes from two sources:  
@@ -98,6 +105,12 @@ The following medical specialties were included in the training data:
 - The main goal of this project was to **learn the full pipeline**: data collection, preprocessing, traditional ML baseline, and fine-tuning a transformer model (HerBERT).  
 
 **In a production setting, much more data would be required for robust performance across all specialties!**
+
+## Technical Stack
+- **Language:** Python 3.10  
+- **Libraries:** scikit-learn, Transformers (Hugging Face), PyTorch, pandas, NumPy  
+- **Model:** `allegro/herbert-base-cased` (fine-tuned)  
+- **Feature extraction (baseline):** TF-IDF + Logistic Regression
 
 
 ## Installation  
@@ -165,19 +178,84 @@ Top predictions:
 !python src/predict_herbert.py
 ```
 
-
 ## Model Performance
 
-I evaluated two approaches for Polish medical text classification: a baseline TF-IDF + Logistic Regression model, and a fine-tuned HerBERT (Polish BERT) model.
+I evaluated two approaches for **Polish medical text classification**:  
+1. A baseline **TF-IDF + Logistic Regression** model.  
+2. A fine-tuned **HerBERT (Polish BERT)** model.
 
-| Model                          | Accuracy | Macro Precision | Macro Recall | Macro F1 | Weighted Precision | Weighted Recall | Weighted F1 |
-|--------------------------------|----------|-----------------|--------------|----------|--------------------|-----------------|-------------|
-| **Baseline (TF-IDF + Logistic Regression)** | 0.75     | 0.86            | 0.70         | 0.74     | 0.82               | 0.75            | 0.76        |
-| **HerBERT (fine-tuned)**       | 0.902    | 0.912           | 0.902        | 0.902    | –                  | –               | –           |
+| Model | Accuracy | Macro Precision | Macro Recall | Macro F1 | Weighted Precision | Weighted Recall | Weighted F1 |
+|--------|-----------|-----------------|--------------|-----------|--------------------|-----------------|--------------|
+| **Baseline (TF-IDF + Logistic Regression)** | 0.39 | 0.55 | 0.38 | 0.42 | 0.55 | 0.39 | 0.43 |
+| **HerBERT (fine-tuned)** | 0.88 | 0.89 | 0.88 | 0.88 | 0.89 | 0.88 | 0.88 |
 
-**Key takeaway**:  
-- The **baseline model** achieves good performance (75% accuracy, Weighted F1 = 0.76), demonstrating that traditional ML methods can capture meaningful patterns.  
-- The **HerBERT model** significantly improves results (Accuracy = 90.2%, F1 = 0.902), showing the advantage of using transformer-based language models for domain-specific classification.
+**Key takeaway:**  
+- The **baseline model** provides a reference point, capturing basic linguistic patterns but struggling with class imbalance and medical domain nuances.  
+- The **HerBERT model** demonstrates strong domain understanding and robust generalization across nearly all medical specialties, achieving an impressive **F1-score of 0.88**.
+
+### 🔍 Per-Class Results — Logistic Regression (Baseline)
+
+| Class              | Precision | Recall | F1-Score | Support |
+|--------------------|------------|---------|-----------|----------|
+| Alergie            | 0.44       | 0.16    | 0.23      | 45       |
+| Cukrzyca           | 0.56       | 0.36    | 0.44      | 67       |
+| Dermatologia       | 0.51       | 0.32    | 0.40      | 56       |
+| Endokrynologia     | 0.54       | 0.21    | 0.30      | 67       |
+| Gastrologia        | 0.81       | 0.57    | 0.67      | 60       |
+| Ginekologia        | 0.19       | 0.06    | 0.09      | 54       |
+| Hematologia        | 0.65       | 0.35    | 0.45      | 63       |
+| Kardiologia        | 0.65       | 0.60    | 0.62      | 82       |
+| Nefrologia         | 0.65       | 0.44    | 0.52      | 71       |
+| Neurologia         | 0.53       | 0.30    | 0.38      | 71       |
+| Okulistyka         | 0.71       | 0.34    | 0.46      | 50       |
+| Onkologia          | 0.44       | 0.29    | 0.35      | 68       |
+| Ortopedia          | 0.55       | 0.43    | 0.48      | 65       |
+| Otolaryngologia    | 0.58       | 0.47    | 0.52      | 66       |
+| Pediatria          | 0.60       | 0.39    | 0.47      | 88       |
+| Psychiatria        | 0.56       | 0.27    | 0.36      | 52       |
+| Pulmonologia       | 0.63       | 0.38    | 0.47      | 69       |
+| Rehabilitacja      | 0.12       | 0.88    | 0.21      | 74       |
+| Reumatologia       | 0.59       | 0.42    | 0.49      | 69       |
+| Stomatologia       | 0.67       | 0.39    | 0.49      | 57       |
+
+| Metric         | Precision | Recall | F1-Score | Support |
+|----------------|------------|---------|-----------|----------|
+| **Accuracy**        | –          | –       | **0.39**  | 1294     |
+| **Macro Avg**       | 0.55       | 0.38    | 0.42      | 1294     |
+| **Weighted Avg**    | 0.55       | 0.39    | 0.43      | 1294     |
+
+
+### 🔍 Per-Class Results — HerBERT (Fine-Tuned)
+
+| Class              | Precision | Recall | F1-Score | Support |
+|--------------------|-----------|--------|----------|---------|
+| Alergie            | 0.89      | 0.88   | 0.88     | 48      |
+| Cukrzyca           | 0.86      | 0.91   | 0.88     | 67      |
+| Dermatologia       | 0.88      | 0.88   | 0.88     | 56      |
+| Endokrynologia     | 0.85      | 0.90   | 0.87     | 67      |
+| Gastrologia        | 0.86      | 0.85   | 0.86     | 60      |
+| Ginekologia        | 0.85      | 0.88   | 0.86     | 57      |
+| Hematologia        | 0.84      | 0.91   | 0.87     | 67      |
+| Kardiologia        | 0.89      | 0.89   | 0.89     | 82      |
+| Nefrologia         | 0.93      | 0.93   | 0.93     | 71      |
+| Neurologia         | 0.88      | 0.86   | 0.87     | 71      |
+| Okulistyka         | 0.93      | 0.84   | 0.88     | 50      |
+| Onkologia          | 0.89      | 0.83   | 0.86     | 71      |
+| Ortopedia          | 0.81      | 0.93   | 0.86     | 68      |
+| Otolaryngologia    | 0.97      | 0.92   | 0.95     | 66      |
+| Pediatria          | 0.82      | 0.84   | 0.83     | 91      |
+| Psychiatria        | 0.96      | 0.87   | 0.91     | 52      |
+| Pulmonologia       | 0.93      | 0.90   | 0.91     | 69      |
+| Rehabilitacja      | 0.87      | 0.90   | 0.88     | 77      |
+| Reumatologia       | 0.89      | 0.84   | 0.87     | 69      |
+| Stomatologia       | 0.96      | 0.93   | 0.95     | 57      |
+
+| Metric         | Precision | Recall | F1-Score | Support |
+|----------------|-----------|--------|----------|---------|
+| **Accuracy**       | –         | –      | 0.88     | 1316    |
+| **Macro Avg**      | 0.89      | 0.88   | 0.88     | 1316    |
+| **Weighted Avg**   | 0.89      | 0.88   | 0.88     | 1316    |
+
 
 
 ## License
