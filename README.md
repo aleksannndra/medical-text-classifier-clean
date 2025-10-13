@@ -69,10 +69,7 @@ The full dataset and large trained models are **not included** due to size const
 
 ## Limitations
 
-This project was built primarily as a **learning exercise**, and therefore the dataset is **limited and imperfect**. The data comes from two sources:  
-
-- **[mp.pl](https://www.mp.pl/pacjent/)** → I manually scraped articles across various medical specialties.
-- **[SpeakLeash](https://speakleash.org/)** → additional Polish text data, which I mapped to medical categories to expand coverage.  
+This project was built primarily as a **learning exercise**, and therefore the dataset is **limited and imperfect**.  
 
 ### Categories Included
 The following medical specialties were included in the training data:
